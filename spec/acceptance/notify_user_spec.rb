@@ -21,18 +21,25 @@ RSpec.describe 'vote on movies', type: :feature do
     )
   end
 
+  with_logged_in_user
+
+  before { page.open }
   context 'someone likes the movie' do
-    with_logged_in_user
-
-    before { page.open }
-
     it 'sends email to author' do
       page.like('Empire strikes back')
       expect(last_email.to).to eq(['bob@example.com'])
-      expect(last_email.subject).to eq('John McFoo just likes your movie.')
-      expect(last_email.body.encoded).to include("John McFoo just likes your movie 'Empire strikes back'")
+      expect(last_email.subject).to eq('John McFoo just liked your movie.')
+      expect(last_email.body.encoded).to include("John McFoo just liked your movie 'Empire strikes back'")
     end
+  end
 
+  context 'someone hates the movie' do
+    it 'sends email to author' do
+      page.hate('Empire strikes back')
+      expect(last_email.to).to eq(['bob@example.com'])
+      expect(last_email.subject).to eq('John McFoo just hated your movie.')
+      expect(last_email.body.encoded).to include("John McFoo just hated your movie 'Empire strikes back'")
+    end
   end
 
   def last_email

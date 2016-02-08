@@ -6,6 +6,6 @@ class UserMailer < ActionMailer::Base
     @user = user
     @type = type
     @movie = movie
-    mail(to: @author.email, subject: "#{@user.name} just #{@type}s your movie.")
+    mail(to: @author.email, subject: "#{@user.name} just #{@type}d your movie.")
   end
 end
