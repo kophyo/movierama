@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "noreply@movierama.com"
 
   def notify(movie, user, type)
     @author = movie.user
