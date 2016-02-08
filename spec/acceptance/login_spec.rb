@@ -9,9 +9,10 @@ RSpec.describe 'login/logout/signup', type: :feature do
   let(:page) { Pages::Home.new }
   before { page.open }
 
-  it 'signs up' do
+  it 'signs up and saves email' do
     page.sign_up
     expect(page).to have_logged_in('John McFoo')
+    expect(page).to have_email('john@example.com')
     expect(page).to have_signup_message
   end
 
